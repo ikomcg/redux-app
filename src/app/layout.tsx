@@ -30,6 +30,9 @@ export default function RootLayout({
                         <li>
                            <Link href="/thunk-function">Thunk Function</Link>
                         </li>
+                        <li>
+                           <Link href="/create-api">RTK Query</Link>
+                        </li>
                      </ul>
                   </nav>
                </header>
