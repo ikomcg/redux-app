@@ -14,20 +14,32 @@ type ProductType = {
    images: string[];
 };
 
+type FetchTodos = { products: ProductType[]; total: number; skip: number };
+
 export const apiTodosSlice = createApi({
    reducerPath: "api-todos",
+   tagTypes: ["Posts"],
    baseQuery: fetchBaseQuery({
       baseUrl: "https://dummyjson.com/",
    }),
-   endpoints(builder) {
-      return {
-         fetchTodos: builder.query<{ products: ProductType[], total : number, skip : number }, number | void>({
-            query(page = 1) {
-               return `products?skip=${page}&limit=10`;
+   endpoints: (builder) => ({
+      fetchTodos: builder.query<FetchTodos, { [key: string]: string | number }>(
+         {
+            query({ page, limit }) {
+               return `products?skip=${page}&limit=${limit}`;
             },
+            providesTags: ["Posts"],
+         }
+      ),
+      addTodos: builder.mutation({
+         query: (initialPosts) => ({
+            url: "products/add",
+            method: "POST",
+            body: initialPosts,
          }),
-      };
-   },
+         invalidatesTags: ["Posts"],
+      }),
+   }),
 });
 
-export const { useFetchTodosQuery } = apiTodosSlice;
+export const { useFetchTodosQuery, useAddTodosMutation } = apiTodosSlice;
