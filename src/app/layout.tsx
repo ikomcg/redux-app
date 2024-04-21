@@ -23,9 +23,12 @@ export default function RootLayout({
                <header className="flex flex-row bg-green-400 py-3 px-3">
                   <h2 className="text-neutral-900 font-bold text-xl">Redux</h2>
                   <nav className="ml-auto w-1/3">
-                     <ul>
+                     <ul className="flex flex-row gap-3 items-center">
                         <li>
                            <Link href="/post-slice">Post Slice</Link>
+                        </li>
+                        <li>
+                           <Link href="/thunk-function">Thunk Function</Link>
                         </li>
                      </ul>
                   </nav>
